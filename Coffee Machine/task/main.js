@@ -21,25 +21,58 @@ $${mon} of money`);
 
 function buy() {
     let coffee = input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-    if (coffee == '1') {
-        water = water - 250;
-        cofBean = cofBean - 16;
-        cups--;
-        money = money + 4;
-    } else if (coffee == '2') {
-        water = water - 350;
-        milk = milk - 75;
-        cofBean = cofBean - 20;
-        cups--;
-        money = money + 7;
-    } else if (coffee == '3') {
-        water = water - 200;
-        milk = milk - 100;
-        cofBean = cofBean - 12;
-        cups--;
-        money = money + 6;
-    } else {
-        console.log('Wrong order');
+    switch (coffee) {
+        case '1':
+            if (water < 250) {
+                console.log('Sorry, not enough water!');
+            } else if (cofBean < 16) {
+                console.log('Sorry, not enough coffee beans!');
+            } else if (cups === 0) {
+                console.log('Sorry, not enough cups!');
+            } else {
+                water = water - 250;
+                cofBean = cofBean - 16;
+                cups--;
+                money = money + 4;
+                console.log('I have enough resources, making you a coffee!')
+            }
+            break;
+        case '2':
+            if (water < 350) {
+                console.log('Sorry, not enough water!');
+            } else if (milk < 75){
+                console.log('Sorry, not enough milk!');
+            } else if (cofBean < 20) {
+                console.log('Sorry, not enough coffee beans!');
+            } else if (cups === 0) {
+                console.log('Sorry, not enough cups!');
+            } else {
+                water = water - 350;
+                milk = milk - 75;
+                cofBean = cofBean - 20;
+                cups--;
+                money = money + 7;
+                console.log('I have enough resources, making you a coffee!')
+            }
+            break;
+        case '3':
+            if (water < 200) {
+                console.log('Sorry, not enough water!');
+            } else if (milk < 100){
+                console.log('Sorry, not enough milk!');
+            } else if (cofBean < 12) {
+                console.log('Sorry, not enough coffee beans!');
+            } else if (cups === 0) {
+                console.log('Sorry, not enough cups!');
+            } else {
+                water = water - 200;
+                milk = milk - 100;
+                cofBean = cofBean - 12;
+                cups--;
+                money = money + 6;
+                console.log('I have enough resources, making you a coffee!')
+            }
+            break;
     }
 }
 
@@ -59,17 +92,22 @@ function take() {
     money = 0;
 }
 
-displaySupplies(water, milk, cofBean, cups, money);
-let action = input("Write action (buy, fill, take):");
-if (action == 'buy') {
-    buy();
-    displaySupplies(water, milk, cofBean, cups, money);
-} else if (action == 'fill') {
-    fill();
-    displaySupplies(water, milk, cofBean, cups, money);
-} else if (action == 'take') {
-    take();
-    displaySupplies(water, milk, cofBean, cups, money);
-} else {
-    console.log('Wrong action');
+
+let action = null;
+while (action !== 'exit') {
+    action = input("Write action (buy, fill, take):");
+    switch (action){
+        case 'buy':
+            buy();
+            break;
+        case 'fill':
+            fill();
+            break;
+        case 'take':
+            take();
+            break;
+        case 'remaining':
+            displaySupplies(water, milk, cofBean, cups, money);
+            break;
+    }
 }
